@@ -9,28 +9,14 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
 ```{r pressure, echo=FALSE}
 plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
 
 #1. The table below shows the data about shoe size and height. Create a data frame.
-
+```{r}
   shoe_size <- c(6.5, 9.0, 8.5, 8.5, 10.5, 7.0, 9.5, 9.0, 13.0, 7.5, 10.5, 8.5, 12.0, 10.5, 13.0, 11.5, 8.5, 5.0, 10.0, 6.5, 7.5, 8.5, 10.5, 8.5 ,10.5, 11.0, 9.0, 13.0)
   height <- c(66.0, 68.0, 64.5, 65.0, 70.0, 64.0, 70.0, 71.0, 72.0, 64.0, 74.5, 67.0, 71.0, 71.0, 77.0, 72.0, 59.0, 62.0, 72.0, 66.0, 64.0, 67.0, 73.0, 69.0, 72.0, 70.0,69.0,70.0)
   gender <- c("F","F","F","F","M","F","F","F","M","F","M","F","M","M","M","M","F","F","M","F","F","M","M","F","M","M","M","M")
@@ -45,7 +31,7 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 #What its result? Show the R scripts. 
 
   males <- data[data$Gender == "M", c("Gender","ShoeSize", "Height")]
-females <- data[data$Gender == "F", c("Gender", "ShoeSize", "Height")]
+  females <- data[data$Gender == "F", c("Gender", "ShoeSize", "Height")]
 
   males
   females
@@ -61,8 +47,10 @@ females <- data[data$Gender == "F", c("Gender", "ShoeSize", "Height")]
 #No, Both shoe size and height can change over a person's lifetime. 
   correlation <- cor(data$ShoeSize, data$Height)
   correlation 
+```
 
 #2. Create a character vector of months
+```{r}
   months <- c(
   "March", "April", "January", "November", "January",
   "September", "October", "September", "November", "August",
@@ -72,29 +60,39 @@ females <- data[data$Gender == "F", c("Gender", "ShoeSize", "Height")]
    factor_months_vector <- factor(months)
     print(factor_months_vector)
     levels(factor_months_vector)
+```
 
 #3 summary 
+```{r}
     # character vector
     #for numerical analysis
     summary(months)
     # the factor
     # for categorical analysis
     summary(factor_months_vector)
+```
     
 #4 Create a vector and factor
+```{r}
     direction_vector <- c("north", "east", "west")
     frequency_vector <- c(1, 4, 3)
     factor_data <- factor(direction_vector, levels = c("east", "west", "north"), c(1, 4, 3))
-    print(factor_data) 
+    print(factor_data)
+```
     
-#5 A Import the excel
+#5. A Import the excel
+```{r}
      library(readr)
      import_march <- read_csv("import_march.csv")
-   
-#5 B.View the dataset
+```
+
+#5. B View the dataset
+```{r}
      head(import_march)
+```
     
-#6 Full Search
+#6. Full Search
+```{r}
    num <- readline(prompt= "Enter number from 1 to 50:") 
     paste("Your entered number is ", num)
     if(num == 50) {
@@ -104,15 +102,20 @@ females <- data[data$Gender == "F", c("Gender", "ShoeSize", "Height")]
     } else {
       paste(num)
     }
-#7 Change
+  ```
+  
+#7.Change
+```{r}
      minimum <- function (price) {
     bill <- price%/% 50 
     paste("The minimum number of bills:", bill)
     }
      snackprice <- 250
      minimum(snackprice) 
-     
-#8 A. Create a dataframe
+```
+
+#8A. Create a dataframe
+```{r}
      name <- c("Annie", "Thea", "Steve", "Hanna")
      grade1 <- c(85, 65, 75, 95)
      grade2 <- c(65, 75, 55, 75)
@@ -120,8 +123,10 @@ females <- data[data$Gender == "F", c("Gender", "ShoeSize", "Height")]
      grade4 <- c(100, 90, 85, 90)
      mathgrades <- data.frame(name, grade1, grade2, grade3, grade4)
      print(mathgrades) 
-     
-#8 B. the average score of students whose average math score over 90 points during the semester.
+```
+
+#8B. the average score of students whose average math score over 90 points during the semester.
+```{r}
      mathgrades <- data.frame(
        name = c("Annie", "Thea", "Steve", "Hanna"),
        grade1 = c(85, 65, 75, 95),
@@ -138,8 +143,10 @@ females <- data[data$Gender == "F", c("Gender", "ShoeSize", "Height")]
      } else {
        paste("No students have an average math score over 90.")
      }
+```
 
-#8 C. the average score was less than 80 out of 4 tests.
+#8C. the average score was less than 80 out of 4 tests.
+```{r}
      test1 <- sum(mathgrades$grade1) / nrow(mathgrades)
      test1 
      test2 <- sum(mathgrades$grade2) / nrow(mathgrades)
@@ -159,9 +166,11 @@ females <- data[data$Gender == "F", c("Gender", "ShoeSize", "Height")]
      } else {
        paste("No test had an average grade less than 80")
      } 
-     
-#8 D.students whose highest score for a semester exceeds 90 points.    
-# annie scores
+```
+
+#8D.students whose highest score for a semester exceeds 90 points.    
+```{r}
+#annie scores
   if (mathgrades[1,2] > mathgrades[1,3] && mathgrades[1,2] > mathgrades[1,4] && mathgrades[1,2] > mathgrades[1,5]) {
   annie <- mathgrades[1,2]
 } else if (mathgrades[1,3] > mathgrades[1,4] && mathgrades[1,3] > mathgrades[1,5]) {
@@ -172,7 +181,7 @@ females <- data[data$Gender == "F", c("Gender", "ShoeSize", "Height")]
   annie <- mathgrades[1,5]
 }
 
-# thea scores
+#thea scores
   if (mathgrades[2,2] > mathgrades[2,3] && mathgrades[2,2] > mathgrades[2,4] && mathgrades[2,2] > mathgrades[2,5]) {
   thea <- mathgrades[2,2]
 } else if (mathgrades[2,3] > mathgrades[2,4] && mathgrades[2,3] > mathgrades[2,5]) {
@@ -183,7 +192,7 @@ females <- data[data$Gender == "F", c("Gender", "ShoeSize", "Height")]
   thea <- mathgrades[2,5]
 }
 
-# steve scores
+#steve scores
   if (mathgrades[3,2] > mathgrades[3,3] && mathgrades[3,2] > mathgrades[3,4] && mathgrades[3,2] > mathgrades[3,5]) {
   steve <- mathgrades[3,2]
 } else if (mathgrades[3,3] > mathgrades[3,4] && mathgrades[3,3] > mathgrades[3,5]) {
@@ -194,7 +203,7 @@ females <- data[data$Gender == "F", c("Gender", "ShoeSize", "Height")]
   steve <- mathgrades[3,5]
 }
 
-# hanna scores
+#hanna scores
   if (mathgrades[4,2] > mathgrades[4,3] && mathgrades[4,2] > mathgrades[4,4] && mathgrades[4,2] > mathgrades[4,5]) {
   hanna <- mathgrades[4,2]
 } else if (mathgrades[4,3] > mathgrades[4,4] && mathgrades[4,3] > mathgrades[4,5]) {
@@ -212,5 +221,5 @@ if (nrow(abovegradeof90) > 0) {
 } else {
   paste("No students have an average math score over 90.")
 }
-
+```
 
