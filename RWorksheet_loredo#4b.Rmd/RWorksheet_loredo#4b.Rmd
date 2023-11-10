@@ -1,0 +1,134 @@
+---
+title: "RWorksheet_loredo#4b.Rmd"
+author: "Natalie Joy Loredo"
+date: "2023-11-08"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+ 
+#1.
+```{r}
+  vectorA <- c(1,2,3,4,5) 
+  zeroMatrix<- matrix(0,nrow = 5, ncol = 5)
+
+    
+  for(i in 1:5){
+    for(j in 1:5) {
+        
+    diff <- abs(vectorA[i]-j)
+    
+    cat(diff,"")
+}
+      cat("\n")
+}
+  
+```      
+#2.
+```{r}
+  for(i in 1:5){
+    melty <- rep("*", i)
+    print(melty)
+  }
+
+```
+#3.
+```{r}
+     
+  userInput <- as.numeric(readline("Enter a number to start the fibonacci sequence: "))
+
+  a <- 0
+  b <- 1
+  cat("fibonacci sequence starting from", userInput, ": ")
+  cat(userInput, " ")
+  
+repeat {
+
+  nextfibo <- a + b
+
+
+  if (nextfibo > 500) {
+    break
+  }
+
+  cat(nextfibo, " ")
+
+  a <- b
+  b <- nextfibo
+}
+```
+
+#4a.
+```{r}
+  library(readr)
+  data <- data.frame <-read_csv("shoe_size_height_data.csv")
+  data
+```
+
+#b.
+```{r}
+  males <- data[data$Gender == "M", c("Gender","ShoeSize", "Height")]
+  females <- data[data$Gender == "F", c("Gender", "ShoeSize", "Height")]
+
+  cat("The number of observation in male subset:", nrow(maleSub),"\n")
+  cat("The number of observation in female subset:", nrow(femaleSub),"\n")
+  
+```
+#c.
+```{r}
+  GenderRibil <- table(ShoeSdata$Gender)
+  barplot(GenderRibil, 
+    main = "Number of males and females in Household Data", 
+    xlab = "Gender", 
+    ylab = "Count",
+    col = c("blue", "pink"), 
+    legend.text = c("Male", "Female"))
+```
+#5a.
+```{r}
+
+```
+#6a.
+```{r}
+
+```
+#b.
+```{r}
+
+```
+#c.
+```{r}
+
+```
+#d.
+```{r}
+
+```
+#e.
+```{r}
+
+```
+#f.
+```{r}
+
+```
+#7a.
+```{r}
+
+```
+#b.
+```{r}
+
+```
+#c.
+```{r}
+
+```
+#d.
+```{r}
+
+```
+
+         
