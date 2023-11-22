@@ -1,0 +1,68 @@
+---
+title: "RWorksheet_loredo#4c.Rmd"
+author: "Natalie Joy Loredo BSIT 2-C"
+date: "2023-11-22"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#1. Use the dataset mpg
+```{r}
+
+
+
+
+
+
+
+
+```
+
+
+
+
+
+
+#1a. Show your solutions on how to import a csv file into the environment.
+```{r}
+
+
+
+
+
+
+
+```
+
+
+
+#b. Which variables from mpg dataset are categorical?
+```{r}
+
+
+
+
+
+
+```
+#4c. Which are continuous variables?
+```{r}
+
+
+
+
+```
+
+
+#2. Which manufacturer has the most models in this data set? Which model has the most variations? Show your answer.
+```{r}
+
+
+
+
+
+
+```
