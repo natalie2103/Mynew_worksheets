@@ -1,0 +1,299 @@
+---
+title: "RWorksheet_loredo#4c.Rmd."
+author: "Natalie Joy Loredo BSIT 2-C"
+date: "2023-11-22"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+#1. Use the dataset mpg
+#a. Show your solutions on how to import a csv file into the environment.
+  library(readr)
+  mpg <- read_csv("mpg.csv")
+
+  View(mpg)
+  
+```
+
+```{r}
+#b. Which variables from mpg dataset are categorical?
+
+  CategoricalVar <- names(sapply(mpg, is.factor))
+  print(CategoricalVar)
+```
+
+```{r}
+
+#c. Which are continuous variables?
+  ContinuousVar <- names(sapply(mpg, is.numeric))
+
+  print(ContinuousVar)
+```
+
+```{r}
+
+#2. Which manufacturer has the most models in this data set? Which model has the most variations? Show your answer.
+
+  model <- mpg %>%
+  group_by(manufacturer) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count))
+
+print(model)
+
+#Dodge is the manufacturer with the most models.
+count <- mpg %>%
+  group_by(model) %>%
+  summarise(variation = n()) %>%
+  arrange(desc(variation))
+
+print(count)
+#Caravan 2wd is the model with the most variation.
+```
+
+```{r}
+#a. Group the manufacturers and find the unique models. Show your codes and result.
+  Manufacturer_models <- unique(mpg[, c("manufacturer", "model")])
+  Manufacturer_models
+```
+
+```{r}
+#b. Graph the result by using plot() and ggplot(). Write the codes and its result.
+
+
+plot(ggplot(Manufacturer_models, aes(x = reorder(manufacturer, -unique), y = unique, fill = unique)) +
+ geom_bar(stat = "identity", width = 0.8) + 
+ labs(title = "Number of Manufacturer's Unique Models", 
+      x = "Manufacturer",
+      y = "Number of Unique Models") +
+   
+ theme_minimal() +
+ scale_fill_gradient(low = "black", high = "pink") +
+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))) 
+
+
+
+
+
+```
+
+```{r}
+#2. Same dataset will be used. You are going to show the relationship of the modeland the manufacturer.
+#a. What does ggplot(mpg, aes(model, manufacturer)) + geom_point() show?
+
+ ggplot(mpg, aes(model, manufacturer)) + geom_point() 
+
+
+```
+
+
+```{r}
+#b. For you, is it useful? If not, how could you modify the data to make it more informative?
+
+ggplot(mpg, aes(x = model, y = manufacturer, color = class)) + 
+
+
+ggplot(mpg, aes(x = model, y = manufacturer, color = class)) + 
+  geom_point() +
+  labs(title = "Car Models and Manufacturers",
+       cex = 3,
+       x = "Car Model",
+       y = "Manufacturer",
+       color = "Vehicle Class") +
+  theme_minimal() +
+  theme(legend.position = "right", axis.text.x = element_text(angle = 90, hjust = 1),
+  plot.title = element_text(hjust  = 0.5))
+
+```
+
+
+
+```{r}
+#3. Plot the model and the year using ggplot(). Use only the top 20 observations. Write the codes and its results.
+
+  library(ggplot2)
+  library(dplyr)
+
+  data(mpg)
+  top_20 <- mpg %>% slice_head(n = 20)
+
+ggplot(top_20, aes(x = year, y = model)) + 
+  geom_point()  +
+  labs(title = "Relationship between Model and Year",
+       x = "Year",
+       y = "Model")
+
+```
+
+
+
+
+```{r}
+#4. Using the pipe (%>%), group the model and get the number of cars per model. Show codes and its result
+
+
+
+
+
+
+
+```
+
+
+
+```{r}
+#a. Plot using geom_bar() using the top 20 observations only. The graphs shoudl have a title, labels and colors. Show code and results.
+
+summary_data <- mpg %>%
+  group_by(model) %>%
+  summarise(total_cars = sum(cars_count)) %>%
+  arrange(desc(total_cars))  #
+top_20 <- summary_data %>% slice(1:20)
+
+
+ggplot(top_20, aes(x = reorder(model, total_cars), y = total_cars, fill = model)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Top 20 Car Models by Count",
+    x = "Car Models",
+    y = "Total Cars"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotating x-axis labels
+
+
+```
+
+
+```{r}
+#b. Plot using the geom_bar() + coord_flip() just like what is shown below. Show codes and its result.
+
+
+
+
+
+
+
+
+
+
+```
+
+```{r}
+#5. Plot the relationship between cyl - number of cylinders and displ - engine displacement using geom_point with aesthetic color = engine displacement. Title should be “Relationship between No. of Cylinders and Engine Displacement”.
+
+
+
+
+
+
+
+
+
+
+```
+
+```{r}
+#a. How would you describe its relationship? Show the codes and its result.
+
+
+
+
+
+
+
+```
+
+
+
+
+
+```{r}
+#6. Plot the relationship between displ (engine displacement) and hwy(highway miles per gallon). Mapped it with a continuous variable you have identified in #1-c. What is its result? Why it produced such output?
+
+  traffic <- read_csv("traffic.csv")
+  head(traffic)
+
+```
+
+
+
+
+```{r}
+#a. How many numbers of observation does it have? What are the variables of the traffic dataset the Show your answer.
+
+  summary(traffic)
+
+```
+
+
+
+```{r}
+#b. subset the traffic dataset into junctions. What is the R codes and its output?
+
+  juncset <- subset[traffic$Junction==]
+  juncset
+
+
+```
+
+
+```{r}
+#c. Plot each junction in a using geom_line(). Show your solution and output.
+
+
+  library(readxl)
+  alexa_file <- read_excel("alexa_file.xlsx")
+  head(alexa_file)
+  
+
+```
+
+```{r}
+#7. From alexa_file.xlsx, import it to your environment.
+#a. How many observations does alexa_file has? What about the number of columns? Show your solution and answer.
+
+  str(alexa_file)
+
+#The number of observations is 3,150 and The number of columns is 5. 
+
+```
+
+```{r}
+#b. group the variations and get the total of each variations. Use dplyr package. Show solution and answer.
+
+
+
+
+```
+
+```{r}
+#c. Plot the variations using the ggplot() function. What did you observe? Complete the details of the graph. Show solution and answer.
+
+
+
+
+```
+
+```{r}
+#d. Plot a geom_line() with the date and the number of verified reviews. Complete the details of the graphs. Show your answer and solution.
+
+
+
+
+```
+
+
+```{r}
+#e. Get the relationship of variations and ratings. Which variations got the most highest in rating? Plot a graph to show its relationship. Show your solution and answer.
+
+
+
+```
+
+
