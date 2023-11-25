@@ -11,28 +11,34 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r}
+
 #1. Use the dataset mpg
 #a. Show your solutions on how to import a csv file into the environment.
+
   library(readr)
   mpg <- read_csv("mpg.csv")
-
-  View(mpg)
+  head(mpg)
   
 ```
 
 ```{r}
+
 #b. Which variables from mpg dataset are categorical?
 
-  CategoricalVar <- names(sapply(mpg, is.factor))
-  print(CategoricalVar)
+  str(mpg) 
+
+#Manufacturer, model, year, cyl, trans, drv, and class are the categorical variables.
+
 ```
 
 ```{r}
 
 #c. Which are continuous variables?
-  ContinuousVar <- names(sapply(mpg, is.numeric))
+  
+  summary(mpg)
 
-  print(ContinuousVar)
+#Manufacturer, model, display, year, cyl, cty, hy, fl, trans, drv, and class are the continuous variables. 
+
 ```
 
 ```{r}
@@ -47,6 +53,7 @@ knitr::opts_chunk$set(echo = TRUE)
 print(model)
 
 #Dodge is the manufacturer with the most models.
+
 count <- mpg %>%
   group_by(model) %>%
   summarise(variation = n()) %>%
@@ -54,49 +61,57 @@ count <- mpg %>%
 
 print(count)
 #Caravan 2wd is the model with the most variation.
+
 ```
 
 ```{r}
+
 #a. Group the manufacturers and find the unique models. Show your codes and result.
-  Manufacturer_models <- unique(mpg[, c("manufacturer", "model")])
-  Manufacturer_models
+ 
+library(dplyr)
+
+manufacmodel <- mpg %>%
+  group_by(manufacturer) %>%
+  summarise(unique_models = n_distinct(model)) 
+
+print(manumodel)
+
 ```
 
 ```{r}
+
 #b. Graph the result by using plot() and ggplot(). Write the codes and its result.
 
-
-plot(ggplot(Manufacturer_models, aes(x = reorder(manufacturer, -unique), y = unique, fill = unique)) +
+plot(ggplot(manumodel, aes(x = reorder(manufacturer, -unique_models), y = unique_models, fill = unique_models)) +
  geom_bar(stat = "identity", width = 0.8) + 
  labs(title = "Number of Manufacturer's Unique Models", 
       x = "Manufacturer",
       y = "Number of Unique Models") +
    
  theme_minimal() +
- scale_fill_gradient(low = "black", high = "pink") +
+ scale_fill_gradient(low = "violet", high = "blue") +
  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))) 
 
-
-
-
-
 ```
 
 ```{r}
-#2. Same dataset will be used. You are going to show the relationship of the modeland the manufacturer.
+
+#2. Same dataset will be used. You are going to show the relationship of the model and the manufacturer.
 #a. What does ggplot(mpg, aes(model, manufacturer)) + geom_point() show?
 
- ggplot(mpg, aes(model, manufacturer)) + geom_point() 
+  ggplot(mpg, aes(model, manufacturer)) + geom_point() 
 
+#This produces an uninformative scatter plot with points representing the association between car models and their respective manufacturers, but the car models are not readable.
 
 ```
 
-
 ```{r}
+
 #b. For you, is it useful? If not, how could you modify the data to make it more informative?
 
-ggplot(mpg, aes(x = model, y = manufacturer, color = class)) + 
+#No, the provided code is merely a basic framework. In order to make this more helpful, I'll change the size of the variable names according to their angle to make it easier to read, add color to distinguish the points based on various factors, and include a legend to help the viewer and prevent confusion. 
 
+#Modify it like this:
 
 ggplot(mpg, aes(x = model, y = manufacturer, color = class)) + 
   geom_point() +
@@ -109,11 +124,10 @@ ggplot(mpg, aes(x = model, y = manufacturer, color = class)) +
   theme(legend.position = "right", axis.text.x = element_text(angle = 90, hjust = 1),
   plot.title = element_text(hjust  = 0.5))
 
-```
-
-
+``` 
 
 ```{r}
+
 #3. Plot the model and the year using ggplot(). Use only the top 20 observations. Write the codes and its results.
 
   library(ggplot2)
@@ -130,23 +144,9 @@ ggplot(top_20, aes(x = year, y = model)) +
 
 ```
 
-
-
-
 ```{r}
-#4. Using the pipe (%>%), group the model and get the number of cars per model. Show codes and its result
 
-
-
-
-
-
-
-```
-
-
-
-```{r}
+#4. Using the pipe (%>%), group the model and get the number of cars per model. Show codes and its result.
 #a. Plot using geom_bar() using the top 20 observations only. The graphs shoudl have a title, labels and colors. Show code and results.
 
 summary_data <- mpg %>%
@@ -166,35 +166,21 @@ ggplot(top_20, aes(x = reorder(model, total_cars), y = total_cars, fill = model)
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotating x-axis labels
 
-
 ```
 
 
 ```{r}
+
 #b. Plot using the geom_bar() + coord_flip() just like what is shown below. Show codes and its result.
 
-
-
-
-
-
-
-
-
-
+  traffic <- read_csv("traffic.csv")
+  head(traffic)
+  
 ```
 
 ```{r}
+
 #5. Plot the relationship between cyl - number of cylinders and displ - engine displacement using geom_point with aesthetic color = engine displacement. Title should be “Relationship between No. of Cylinders and Engine Displacement”.
-
-
-
-
-
-
-
-
-
 
 ```
 
@@ -214,6 +200,7 @@ ggplot(top_20, aes(x = reorder(model, total_cars), y = total_cars, fill = model)
 
 
 ```{r}
+
 #6. Plot the relationship between displ (engine displacement) and hwy(highway miles per gallon). Mapped it with a continuous variable you have identified in #1-c. What is its result? Why it produced such output?
 
   traffic <- read_csv("traffic.csv")
@@ -231,36 +218,42 @@ ggplot(top_20, aes(x = reorder(model, total_cars), y = total_cars, fill = model)
 
 ```
 
-
-
 ```{r}
+
 #b. subset the traffic dataset into junctions. What is the R codes and its output?
 
-  juncset <- subset[traffic$Junction==]
-  juncset
-
+  junc <- traffic$Junction
+  junc
 
 ```
 
-
 ```{r}
+
 #c. Plot each junction in a using geom_line(). Show your solution and output.
 
 
-  library(readxl)
-  alexa_file <- read_excel("alexa_file.xlsx")
-  head(alexa_file)
+  
   
 
 ```
 
 ```{r}
+
 #7. From alexa_file.xlsx, import it to your environment.
+
+  library(readxl)
+  alexa_file <- read_excel("alexa_file.xlsx")
+  head(alexa_file)
+
+```
+
+```{r}
+
 #a. How many observations does alexa_file has? What about the number of columns? Show your solution and answer.
 
   str(alexa_file)
 
-#The number of observations is 3,150 and The number of columns is 5. 
+#The number of observations does alexa_file has is 3,150 and the number of columns is 5.
 
 ```
 
